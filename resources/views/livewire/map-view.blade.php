@@ -1,7 +1,15 @@
 <div>
 
+    @auth
+    @if(count($zmaps)>=3)
+        @livewire('map-vote-laucher',[false,$layout,$players])
+    @else
+        @livewire('map-vote-laucher',[true,$layout,$players])
+    @endif
+    @endif
+
     <div class="p-4">
-        <div class="text-gray-500 text-sm  mb-3 font-thin uppercase"> @if(count($avaliable_maps)) Avaliable Maps: {{ count($avaliable_maps) }} @endif</div>
+        <div class="text-gray-500 text-sm  mb-3 font-thin uppercase"> @if(count($zmaps)) Avaliable Maps: {{ count($zmaps) }} @endif</div>
         <div class=" ">
             @if(count($reality_maps)==0)
                 <div class="text-center text-gray-600">No have maps in rotation</div>
@@ -19,7 +27,7 @@
                                     <div class="p-4 ">
                                         <div class="font-bold text-xs md:text-md  text-neutral-content">{{ $map->map['Name'] }}</div>
                                         <span class="text-gray-600 text-xs">{{ __('app.size_'.$map['size']) }}</span>
-                                       {{-- {{ $map['avaliable'] }}--}}
+                                        {{-- {{ $map['avaliable'] }}--}}
                                     </div>
                                 </div>
                             </div>
@@ -29,5 +37,15 @@
             </div>
         </div>
     </div>
+
+    {{--<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            Livewire.emit('disableVotemap',false)
+            @if(count($zmaps)>=3)
+            alert('x');
+            @endif
+        });
+        //  $this->emit('disableVotemap',false);
+    </script>--}}
 
 </div>

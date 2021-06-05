@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Traits;
 
+use App\Jobs\DiscordMessage;
 use App\Models\LevelsIndex;
 use App\Models\ServerHistory;
+use App\Models\Votes;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 trait VotemapEngine {
 
@@ -43,17 +46,18 @@ trait VotemapEngine {
     /**
      * Bind All Data
      */
-    protected function bindData(){
+    public function bindData(){
         $this->findRequestInputs();
         $this->populateHistory();
         $this->populateOptions();
         $this->makeAvaliableMaps();
+      #  dd($this->reality_maps);
     }
 
     /**
      * Populate History -  Rotation of maps
      */
-    protected function populateHistory(){
+    public function populateHistory(){
 
         // Limits to log
         $days_limit = env('DIV_MAXD') ?: 2;
@@ -77,14 +81,21 @@ trait VotemapEngine {
     public function populateOptions(){
 
         // Avaliable Options Query
-        if($this->players && $this->layout){
+      #
+        #if($this->players && $this->layout){
             $LevelsIndex = LevelsIndex::query();
             $LevelsIndex->where('players',$this->players);
             $LevelsIndex->where('game_mode', $this->layout  );
             $this->reality_maps = $LevelsIndex->get();
-        }else{
-            $this->reality_maps  = [];
-        }
+           # dd($LevelsIndex->get(),'pl');
+           # dd($LevelsIndex->get(),$this->players,$this->layout);
+          #  dd($this->reality_maps);
+            if(!$this->reality_maps){
+                dd('xxxxxxxxxxx',[$this->players , $this->layout]);
+            }
+        #}else{
+        #    $this->reality_maps  = [];
+       # }
 
     }
 
@@ -94,41 +105,50 @@ trait VotemapEngine {
      */
     public function makeAvaliableMaps(){
 
+        $this->zmaps = [];
         $this->avaliable_maps = [];
+       # $this->reality_maps = [];
+        $this->populateOptions();
         $result = [];
         foreach($this->reality_maps as $reality_map)
         {
             $found = false;
+         #   dd($this->server_maps,$this->layout);
             foreach($this->server_maps as $server_map)
             {
+             #   dd('x',$reality_map['map_mode'],$server_map['game_mode']);
                 if( $reality_map['size'] == $server_map['map_size']
                     && $reality_map['map_key']==$server_map['map_key']
                     && $reality_map['map_mode']==$server_map['game_mode']
                 ){
                     $found = true;
                 }
+
             }
             $reality_map['unavaliable'] = $found;
             $result[$reality_map['id']] = $reality_map;
-        }
-        foreach($result as $item)
-        {
-            if(!$item['unavaliable']){
-                $this->avaliable_maps[] = $item;
-                $this->zmaps[ $item['map_key'] ]=$item['map_key'];
-            }
+
+
+            if(!$found && isset($reality_map['map_key']))
+                $this->zmaps[ $reality_map['map_key'] ] = $reality_map['map_key'];
+
         }
 
-        $this->reality_maps = $result;
+        $this->avaliable_maps = $result;
 
         if(count( $this->zmaps)>=3){
-            if(count($this->avaliable_maps) >=5){
+            if(count($this->zmaps) >=3){
                 $this->emit('disableVotemap',false);
             }else{
                 $this->emit('disableVotemap',true);
             }
+        }else{
+            $this->emit('disableVotemap',false);
         }
 
     }
+
+
+
 
 }

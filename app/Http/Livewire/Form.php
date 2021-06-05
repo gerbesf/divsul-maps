@@ -16,6 +16,12 @@ use Livewire\Component;
 class Form extends Component
 {
 
+    // Query for player quantity
+    public $players = '';
+
+    // Query for layout map
+    public $layout = '';
+
     use VotemapFilter;
 
     // Array with filters
@@ -29,34 +35,9 @@ class Form extends Component
 
         // avaliable filters
         $this->filters = Filters::orderBy('name','asc')->get()->toArray();
-
+/*
         // Input Players based on server
-        $this->autoSelectPlayers();
-
-        // Input Layout based on url
-        $this->autoSelectLayout();
-
-    }
-
-    // Trigger updated
-    public function updated($key,$value){
-        if($key=='players'){
-            $this->emit('filter_players',$value);
-            $this->players = $value;
-        }
-        if($key=='layout'){
-            $this->emit('filter_layout',$value);
-            $this->layout = $value;
-        }
-    }
-
-    /**
-     * Automatic select Input Players
-     */
-    protected function autoSelectPlayers(){
-
         $lastEntity = ServerHistory::orderBy('id','desc')->first();
-
         if(isset($lastEntity->players)){
             if($lastEntity->players<=30){
                 $this->players = '0_30';
@@ -73,19 +54,39 @@ class Form extends Component
             if($lastEntity->players>=81 && $lastEntity->players<=100){
                 $this->players = '81_100';
             }
-        }
-    }
+        }*/
 
-    protected function autoSelectLayout(){
+        // Input Layout based on url
         if(request()->has('layout')){
             $this->layout = request()->get('layout');
             $this->emit('filter_layout',$this->layout);
         }
+
+        // Input Layout based on url
+        if(request()->has('players')){
+            $this->players = request()->get('players');
+            $this->emit('filter_players',$this->players);
+        }
+
     }
+
+    // Trigger updated
+    public function updated($key,$value){
+        if($key=='players'){
+            $this->emit('filter_players',$value);
+            $this->players = $value;
+        }
+        if($key=='layout'){
+            $this->emit('filter_layout',$value);
+            $this->layout = $value;
+        }
+    }
+
 
     public function render()
     {
-        $this->emit('filter_players',$this->players);
+        #$this->emit('filter_players',$this->players);
+        #$this->emit('filter_layout',$this->layout);
         return view('livewire.form');
     }
 }

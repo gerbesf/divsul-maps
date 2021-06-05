@@ -55,6 +55,9 @@ class VotemapConfirmation extends Component
             'status'=>'complete'
         ]);
 
+        session()->flash('message', 'Success!');
+
+
         return redirect('/');
     }
 

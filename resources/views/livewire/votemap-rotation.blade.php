@@ -2,6 +2,9 @@
 
     <div class="py-5 ">
         <div class="max-w-4xl m-auto mb-5 mbx-20">
+
+            @if($sorteado)
+
             <button class="btn btn-primary btn-block btn-lg font-bold mb-6" wire:click="confirmVote">Confirm Votemap</button>
             <div class="grid grid-cols-3 mb-5">
                 @foreach($sorteado as $map)
@@ -25,7 +28,13 @@
                  {{ $votemap_text }}
             </div>
 
-            <button wire:click="runSweepstakes" class="btn btn-dark btn-block mb-5">Try again</button>
+                <button type="button" wire:click="runSweepstakes" class="btn btn-dark btn-block mb-5">Try again</button>
+
+            @else
+
+                <button type="button" wire:click="runSweepstakes" class="btn btn-primary btn-block mb-5">Make Rotation Maps</button>
+
+            @endif
         </div>
         <div class="max-w-2xl m-auto mb-5 ">
         @foreach($history as $index=>$maps)

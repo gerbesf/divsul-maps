@@ -16,6 +16,7 @@ class VotemapController extends Controller
 
         try {
 
+
             // force fail to redirect
             $this->entity = Votes::where('id',$request->get('vId'))->where('user_id',Auth::user()->id)->firstOrFail();
 
@@ -31,7 +32,8 @@ class VotemapController extends Controller
             ]);
 
         }catch ( \Exception $exception ){
-            return redirect('/?error='.$exception->getMessage());
+            return redirect('/?error');
+         #   return redirect('/?error='.$exception->getMessage());
         }
     }
 

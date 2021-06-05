@@ -19,14 +19,16 @@
                         </div>
 
                         @if(!$votemap)
+                            1
                             @livewire('votemap-rotation')
                         @endif
                         @if($votemap)
+                            2
                             @livewire('votemap-confirmation')
                         @endif
 
                     @else
-                        <div class="alert alert-info rounded-sm"> Login to start a new poll</div>
+                        <div class="alert alert-warning rounded-sm"> Login to start a new poll</div>
                     @endif
                 </div>
             </div>

@@ -4,13 +4,6 @@ namespace App\Http\Livewire\Traits;
 
 trait VotemapFilter {
 
-    // Query for player quantity
-    public $players = '';
-
-    // Query for layout map
-    public $layout = '';
-    public $layouts = '';
-
     public function findRequestInputs(){
 
         // -- on request
@@ -30,6 +23,7 @@ trait VotemapFilter {
         }
 
     }
+
 
 
 }
