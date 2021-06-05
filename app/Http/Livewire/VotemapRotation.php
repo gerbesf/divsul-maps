@@ -140,7 +140,6 @@ class VotemapRotation extends Component
             'history'=>$history
         ]));
 
-
         Votes::where('id',$this->entity->id)->update($payload);
 
         return redirect('/votemap?vId='.$this->entity->id);

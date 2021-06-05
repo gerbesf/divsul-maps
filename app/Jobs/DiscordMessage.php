@@ -59,7 +59,7 @@ class DiscordMessage implements ShouldQueue
         // Winner Map
         if( isset($this->payload['winner'])){
             $message->setTitle($this->nickname.' '.$this->message);
-            $this->message = $this->payload['winner']->map->Name.' - '.__('app.'.$this->payload['winner']->game_mode).'  - '.__('app.sized_'.$this->payload['winner']['size']);
+            $this->message = $this->payload['winner']->map->Name.' - '.__('app.'.$this->payload['winner']->game_mode));
             $message->setImage('https://www.realitymod.com/mapgallery/images/maps/'.$this->payload['winner']->map->Image.'/mapoverview_gpm_'.$this->payload['winner']->game_mode.'_'.$this->payload['winner']->size.'.jpg');
             $message->setColor( 3066993);
         }
