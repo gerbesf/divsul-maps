@@ -1,0 +1,15 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body{
+    background: #22212d;
+}
+
+.bg-dark {
+   /* background: #000; */
+}
+
+.history-card {
+    background-size: 100% auto;
+}
