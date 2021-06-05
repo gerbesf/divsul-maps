@@ -87,7 +87,9 @@ class MapVoteLaucher extends Component
                     'status'=>'expired'
                 ]);
 
-                dispatch( new DiscordMessage( 'error', Auth::user()->nickname, 'Expirou '));
+                $VoteS = Votes::where('id',$active->id)->first();
+                dispatch( new DiscordMessage( 'error', $VoteS->user->nickname, 'Teve o seu vote expirado'));
+
                 return redirect('/');
             }
 
