@@ -122,7 +122,7 @@ class RealityServer extends Command
             if(  $this->last_entity->valid==false){
                 $payload['valid'] = true;
             }else{
-                $payload['valid'] = false;
+                $payload['valid'] = 0;
             }
             ServerHistory::where('id',$this->last_entity->id)->update($payload);
         }
