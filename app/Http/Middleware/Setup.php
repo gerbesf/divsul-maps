@@ -23,7 +23,7 @@ class Setup
                 if(Auth::user() && Auth::user()->level) {
                     return redirect('/setup');
                 }
-                return redirect('/offline');
+                dd('not possible continue, only superadmin is authorized');
             }
         }
 
