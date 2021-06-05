@@ -112,6 +112,8 @@ class RealityServer extends Command
         if(isset($this->last_entity->valid)){
             if(  $this->last_entity->valid==false){
                 $payload['valid'] = true;
+            }else{
+                $payload['valid'] = false;
             }
 
             if($payload){
