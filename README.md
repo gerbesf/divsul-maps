@@ -12,10 +12,10 @@ php artisan create:admin_master {name} {nick} {email} {password}
 
 ```
 # server sync
-* * * * * php /var/www/divsul-maps/artisan reality:server
+* * * * * php /var/www/divsul_org/divsul-maps/artisan reality:server
 
 # maps sync
-0 1 * * * php /var/www/divsul-maps/artisan reality:maps
+0 1 * * * php /var/www/divsul_org/divsul-maps/artisan reality:maps
 ```
 
 

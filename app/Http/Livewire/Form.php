@@ -26,7 +26,6 @@ class Form extends Component
 
     public function mount(){
 
-
         // avaliable filters
         $this->filters = Filters::orderBy('name','asc')->get()->toArray();
 
@@ -57,11 +56,11 @@ class Form extends Component
         $lastEntity = ServerHistory::orderBy('id','desc')->first();
 
         if(isset($lastEntity->players)){
-            if($lastEntity->players<=20){
-                $this->players = '0_20';
+            if($lastEntity->players<=30){
+                $this->players = '0_30';
             }
-            if($lastEntity->players>=21 && $lastEntity->players<=40){
-                $this->players = '21_40';
+            if($lastEntity->players>=31 && $lastEntity->players<=40){
+                $this->players = '31_40';
             }
             if($lastEntity->players>=41 && $lastEntity->players<=60){
                 $this->players = '41_60';
