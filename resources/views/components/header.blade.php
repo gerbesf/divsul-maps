@@ -36,12 +36,12 @@
         </div>
     </div>--}}
     <div class="flex-none">
-        <a href="#my-modal"  class="btn btn-square btn-ghost">
+        <a href="#modal-menu"  class="btn btn-square btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!---->
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!----> <!---->
             </svg>
         </a>
-        <div id="my-modal" class="modal">
+        <div id="modal-menu" class="modal">
             <div class="modal-box">
 
                 <ul class="menu bg-base-100  rounded-b-none uppercase">
