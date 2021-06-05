@@ -19,10 +19,12 @@ class Setup
     public function handle(Request $request, Closure $next)
     {
         if( Server::count()==0) {
-            if(Auth::user() && Auth::user()->level && \Route::currentRouteName()!='setup') {
-                return redirect('/setup');
+            if(\Route::currentRouteName()!='setup'){
+                if(Auth::user() && Auth::user()->level) {
+                    return redirect('/setup');
+                }
+                return redirect('/offline');
             }
-            return redirect('/offline');
         }
 
         return $next($request);
