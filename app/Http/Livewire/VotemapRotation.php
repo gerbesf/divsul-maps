@@ -134,13 +134,14 @@ class VotemapRotation extends Component
             'expires_at' => Carbon::now()->addMinutes(env('DIV_MAXV') ?: 3),
         ];
 
-        Votes::where('id',$this->entity->id)->update($payload);
-
         // Discord Message
         dispatch( new DiscordMessage( 'success', Auth::user()->nickname, 'Está votando ',  [
             'votemap'=>$this->sorteado,
             'history'=>$history
         ]));
+
+
+        Votes::where('id',$this->entity->id)->update($payload);
 
         return redirect('/votemap?vId='.$this->entity->id);
     }

@@ -88,10 +88,8 @@ class DiscordMessage implements ShouldQueue
                 $extra .= implode(' | ',$map)."\n";
             }
 
-            if(strlen($extra)){
-                $extra = "\n\nTentativas anteriores: \n";
-                $message->setFooterText($extra);
-            }
+            $extra = "\n\nTentativas anteriores: \n".$extra;
+            $message->setFooterText($extra);
         }
 
         $message->setDescription($this->message);
