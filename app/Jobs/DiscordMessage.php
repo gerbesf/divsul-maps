@@ -79,7 +79,7 @@ class DiscordMessage implements ShouldQueue
         }
 
         // History on Votemap
-        if( isset($this->payload['history'])){
+        if( isset($this->payload['history']) && is_array($this->payload['history'])){
             $extra = "\n\nTentativas anteriores: \n";
             foreach($this->payload['history'] as $map){
                 $extra .= implode(' | ',$map)."\n";
