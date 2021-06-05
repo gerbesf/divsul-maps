@@ -33,18 +33,4 @@
         @endforeach
 
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            window.openZ();
-            Livewire.hook('element.updating', (fromEl, toEl, component) => {
-                window.openZ();
-            })
-            Livewire.hook('element.updated', (el, component) => {
-                window.closeZ();
-            })
-            Livewire.hook('message.processed', (message, component) => {
-                window.closeZ();
-            })
-        });
-    </script>
 </div>

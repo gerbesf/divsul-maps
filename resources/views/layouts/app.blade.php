@@ -21,34 +21,11 @@
         <div>
             <script>
 
-                window.closeZ = function (){
-                    setTimeout(function (){
-                        var element = document.getElementById("loader");
-                        element.classList.add("hidden");
-                    },100)
-                }
-                window.openZ = function (){
+                setTimeout(function (){
                     var element = document.getElementById("loader");
-                    element.classList.remove("hidden");
-                }
-                document.addEventListener("DOMContentLoaded", () => {
-                    window.openZ();
-                    Livewire.hook('component.initialized', (component) => {})
-                    Livewire.hook('element.initialized', (el, component) => {})
-                    Livewire.hook('element.updating', (fromEl, toEl, component) => {})
-                    Livewire.hook('element.updated', (el, component) => {
-                        window.closeZ();
-                    })
-                    Livewire.hook('element.removed', (el, component) => {})
-                    Livewire.hook('message.sent', (message, component) => {})
-                    Livewire.hook('message.failed', (message, component) => {})
-                    Livewire.hook('message.received', (message, component) => {})
-                    Livewire.hook('message.processed', (message, component) => {
-                        window.closeZ();
-                    })
+                    element.classList.add("hidden");
+                },1000)
 
-                    window.closeZ();
-                });
             </script>
             <div id="loader" class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-900 opacity-75 flex flex-col items-center justify-center">
                 <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
