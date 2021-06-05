@@ -94,7 +94,7 @@ class MapView extends Component
 
                 $VoteS = Votes::where('id',$active->id)->first();
                 dispatch( new DiscordMessage( 'error', $VoteS->user->nickname, 'Teve o seu vote expirado'));
-                
+
                 return redirect('/');
             }
 
