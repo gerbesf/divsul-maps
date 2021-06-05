@@ -89,7 +89,6 @@ class RealityServer extends Command
                     $game_mode = str_replace('gpm_', '', $this->gametype);
                     $image = 'https://www.realitymod.com/mapgallery/images/maps/'.$Level->Image.'/mapoverview_gpm_'.$game_mode.'_'.$this->mapsize.'.jpg';
 
-                    $name .= ' - '.__('app.'.str_replace('gpm_', '', $this->gametype)).' - '.__('app.sized_'.$this->mapsize);
 
                     // payload
                     $payload = [
@@ -101,6 +100,8 @@ class RealityServer extends Command
                         'players' => $this->numplayers,
                         'valid' => $valid
                     ];
+
+                    $name .= ' - '.__('app.'.str_replace('gpm_', '', $this->gametype)).' - '.__('app.sized_'.$this->mapsize);
 
                     #dd($payload);
                     // Discord Alert
