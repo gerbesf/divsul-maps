@@ -1,6 +1,5 @@
 <div>
 
-    <div class="wire:loading">--------</div>
     @if(!$entity)
 
         <button class="btn btn-primary btn-block" wire:click="unlockVotemap" @if($locked) disabled @endif >Start a new vote</button>
