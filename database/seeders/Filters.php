@@ -27,7 +27,7 @@ class Filters extends Seeder
         $scope = [
             'name' => 'Players',
             'settings' => array([
-                'name' => '0 - 20',
+                'name' => '0 - 30',
                 'code' => '0_30'
             ],[
                 'name' => '31 - 40',
