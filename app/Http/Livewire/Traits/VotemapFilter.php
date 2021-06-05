@@ -13,6 +13,7 @@ trait VotemapFilter {
 
     public function findRequestInputs(){
 
+        // -- on request
         if(request()->has('layout')){
             $this->layout = request()->get('layout');
         }
@@ -20,6 +21,7 @@ trait VotemapFilter {
             $this->players = request()->get('players');
         }
 
+        // -- on entity
         if( isset($this->entity->layout)){
             $this->layout = $this->entity->layout;
         }

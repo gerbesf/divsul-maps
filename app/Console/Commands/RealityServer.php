@@ -15,7 +15,6 @@ use Ixudra\Curl\Facades\Curl;
 class RealityServer extends Command
 {
 
-
     protected $signature = 'reality:server';
 
     protected $description = 'Sync server on reality mod';
@@ -39,11 +38,6 @@ class RealityServer extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
     public function handle()
     {
         $this->populateServers();
@@ -60,12 +54,13 @@ class RealityServer extends Command
                 $valid = true;
             }
 
-      #      if($valid)
+            // Check validatit
             $this->checkIsValidNow();
 
-
-
+            // If not exists entity
             if (!isset($this->last_entity->id)) {
+
+                // payload
                 $payload = [
                     'name' => $name,
                     'map_key' => $this->level->Key,
@@ -75,14 +70,25 @@ class RealityServer extends Command
                     'players' => $this->numplayers,
                     'valid' => $valid
                 ];
+
+                // Create
                 ServerHistory::create($payload);
             }
+
+            // if Entity is diff from last
             if (isset($this->last_entity->id)) {
                 if ($this->last_entity->map_key != $slug) {
 
+                    // select map
                     $map = Levels::where('Slug',$slug)->first();
+
+                    // image
                     $game_mode = str_replace('gpm_', '', $this->gametype);
                     $image = 'https://www.realitymod.com/mapgallery/images/maps/'.$map->Image.'/mapoverview_gpm_'.$game_mode.'_'.$this->mapsize.'.jpg';
+
+                    $name .= ' - '.__('app.'.str_replace('gpm_', '', $this->gametype)).' - '.__('app.sized_'.$this->mapsize);
+
+                    // payload
                     $payload = [
                         'name' => $name,
                         'map_key' => $slug,
@@ -93,12 +99,12 @@ class RealityServer extends Command
                         'valid' => $valid
                     ];
 
-                    $name .= ' - '.__('app.'.str_replace('gpm_', '', $this->gametype)).' - '.__('app.sized_'.$this->mapsize);
-
+                    // Discord Alert
                     dispatch( new DiscordMessage( 'primary', $name, $this->numplayers.'/100',  [
                         'image'=>$image
                     ]));
 
+                    // Create
                     ServerHistory::create($payload);
                 }
             }
@@ -106,6 +112,9 @@ class RealityServer extends Command
     }
 
     protected function checkIsValidNow(){
+
+
+        // for update total players
         $payload = [];
         $payload['players'] = $this->numplayers;
 
@@ -115,25 +124,23 @@ class RealityServer extends Command
             }else{
                 $payload['valid'] = false;
             }
-
-            if($payload){
-                ServerHistory::where('id',$this->last_entity->id)->update($payload);
-            }
+            ServerHistory::where('id',$this->last_entity->id)->update($payload);
         }
     }
 
-
+    /**
+     * Populate Pr Servers
+     * @todo general class
+     * @throws \Exception
+     */
     protected function populateServers() {
         $response = Cache::remember('prspy',60,function (){
             return Curl::to('https://servers.realitymod.com/api/ServerInfo')
                 ->asJson()->get();
         });
-
         if( isset($response->servers)){
-
             $this->api_reality_servers = $response->servers;
             sort($this->api_reality_servers);
-
         }else{
             throw new \Exception('Error on RealityMod / Servers Info');
         }
@@ -143,14 +150,14 @@ class RealityServer extends Command
 
         $activeServer = Server::first();
         foreach($this->api_reality_servers as $server){
-           # dd($activeServer,$server);
 
-         #   dd($server);
             if($server->serverId==$activeServer->server_id){
 
+                // select level
                 $Level = Levels::where('name',$server->properties->mapname)->first();
                 $this->level = $Level;
 
+                // server properties
                 $gVer = explode('-',$server->properties->gamever);
                 $this->hostname = substr($server->properties->hostname,14,99999);
                 $this->gamever = $gVer[0];
@@ -160,6 +167,7 @@ class RealityServer extends Command
                 $this->numplayers = $server->properties->numplayers;
                 $this->maxplayers = $server->properties->maxplayers;
                 $this->flag_county = $server->countryFlag;
+
             }
         }
 

@@ -22,14 +22,19 @@ class MapsController extends Controller
         if(Auth::user()->level!="M")
             return redirect('/');
 
+        // Levels
         $levels = Levels::get();
-        $filters = Filters::whereIn('name',['Players'])->get(); // ->groupBy('name')
+
+        // Prepare Filters
+        $filters = Filters::whereIn('name',['Players'])->get();
         $filters = collect($filters)->map(function ($obj){
             return [
                 $obj->name=>$obj['settings']
             ];
         })->toArray();
-        $filters = collect($filters)->map(function ($obj){
+
+        // Implement Filters
+        collect($filters)->map(function ($obj){
             $this->filters[array_key_first($obj)] = $obj[array_key_first($obj)];
         })->toArray();
 
@@ -37,5 +42,6 @@ class MapsController extends Controller
             'levels'=>$levels,
             'filters'=>$this->filters
         ]);
+
     }
 }

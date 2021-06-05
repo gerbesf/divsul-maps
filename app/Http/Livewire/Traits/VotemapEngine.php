@@ -34,6 +34,13 @@ trait VotemapEngine {
 
 
     /**
+     * @var array
+     * Maps to Internal Count
+     *
+     */
+    public $zmaps = [];
+
+    /**
      * Bind All Data
      */
     protected function bindData(){
@@ -81,7 +88,6 @@ trait VotemapEngine {
 
     }
 
-    public $zmaps = [];
     /**
      * Make Avaliable Maps
      * Combine history and maps to make avaliable maps
@@ -122,8 +128,6 @@ trait VotemapEngine {
                 $this->emit('disableVotemap',true);
             }
         }
-
-      #  dd($this->avaliable_maps,$this->server_maps);
 
     }
 

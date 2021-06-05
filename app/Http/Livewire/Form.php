@@ -24,6 +24,7 @@ class Form extends Component
     // Query string
     public $queryString = ['players','layout'];
 
+    // Construct
     public function mount(){
 
         // avaliable filters
@@ -37,6 +38,7 @@ class Form extends Component
 
     }
 
+    // Trigger updated
     public function updated($key,$value){
         if($key=='players'){
             $this->emit('filter_players',$value);
@@ -79,11 +81,6 @@ class Form extends Component
             $this->layout = request()->get('layout');
             $this->emit('filter_layout',$this->layout);
         }
-    }
-
-
-    public function resetMods(){
-        $this->mods = null;
     }
 
     public function render()

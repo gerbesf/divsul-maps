@@ -20,22 +20,9 @@ class SetupController extends Controller
         $this->middleware('auth');
     }
 
-    protected function populateServers() {
-        $response = Cache::remember('prspy',60,function (){
-            return Curl::to('https://servers.realitymod.com/api/ServerInfo')
-                ->asJson()->get();
-        });
-
-        if( isset($response->servers)){
-
-            $this->api_reality_servers = $response->servers;
-            sort($this->api_reality_servers);
-
-        }else{
-            throw new \Exception('Error on RealityMod / Servers Info');
-        }
-    }
-
+    /**
+     * Setup Page
+     */
     public function setup(Request $request ){
 
         if(Auth::user()->level!="M")
@@ -45,7 +32,6 @@ class SetupController extends Controller
             $this->changeServer($request);
         }
 
-
         $this->populateServers();
 
         return view('setup',[
@@ -53,6 +39,9 @@ class SetupController extends Controller
         ]);
     }
 
+    /**
+     * Change Server
+     */
     public function changeServer( Request $request ){
 
         $this->populateServers();
@@ -62,36 +51,41 @@ class SetupController extends Controller
 
             if( $server->serverId==$request->get('id')){
 
-              #  if( Server::count() == 0 ) {
-
-                    Server::create([
-                        'server_id' => $server->serverId,
-                        'name' => $this->getServerName( $server),
-                        'status' => 'active'
-                    ]);
-/*
-                }else{
-
-                    // Update current entity
-                    $ServerEntity = Server::first();
-                    Server::where('server_id',$ServerEntity->serverId)->update([
-                        'server_id' => $server->serverId,
-                        'name' => $this->getServerName( $server),
-                        'status' => 'active'
-                    ]);
-                }*/
+                Server::create([
+                    'server_id' => $server->serverId,
+                    'name' => $this->getServerName( $server),
+                    'status' => 'active'
+                ]);
 
                 Artisan::call('reality:maps');
 
                 // return
                 return redirect('/maps');
 
-
             }
 
         }
 
     }
+
+
+    /**
+     * Populate Servers
+     * @throws \Exception
+     */
+    protected function populateServers() {
+        $response = Cache::remember('prspy',60,function (){
+            return Curl::to('https://servers.realitymod.com/api/ServerInfo')
+                ->asJson()->get();
+        });
+        if( isset($response->servers)){
+            $this->api_reality_servers = $response->servers;
+            sort($this->api_reality_servers);
+        }else{
+            throw new \Exception('Error on RealityMod / Servers Info');
+        }
+    }
+
 
     /**
      * Get Server Name

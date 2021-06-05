@@ -105,21 +105,22 @@ class VotemapRotation extends Component
     public function confirmVote(){
 
         $history = $this->history;
-        unset($history[ count($history)-1]);
+        unset($history[ count($history)-1]); // remove actual vote from list
+
         $payload = [
             'votemap' => $this->sorteado,
             'rotations_history' => $history,
             'expires_at' => Carbon::now()->addMinutes(env('DIV_MAXV') ?: 3),
         ];
 
+        Votes::where('id',$this->entity->id)->update($payload);
+
+        // Discord Message
         dispatch( new DiscordMessage( 'success', Auth::user()->nickname, 'Está votando ',  [
             'votemap'=>$this->sorteado,
             'history'=>$history
         ]));
-       # dd('iun');
 
-
-        Votes::where('id',$this->entity->id)->update($payload);
         return redirect('/votemap?vId='.$this->entity->id);
     }
 

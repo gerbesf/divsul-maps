@@ -9,41 +9,25 @@ use Illuminate\Console\Command;
 
 class CreateUser extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'create:admin_master {name} {nick} {email} {password}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Create Administrative Administrators';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     public function handle()
     {
+
+        // arguments
         $name = $this->argument('name');
-      #  $username = $this->argument('username');
         $password = $this->argument('password');
         $email = $this->argument('email');
+
+        // Create
         User::create([
             'name' => $name,
             'nickname' => $name,
@@ -56,4 +40,5 @@ class CreateUser extends Command
         $this->info('Account created for '.$name);
 
     }
+
 }

@@ -68,6 +68,11 @@ class RealityMaps extends Command
     }
 
 
+    /**
+     * @todo make in general class
+     * @param $slug
+     * @return string
+     */
     public function getImageKeyName( $slug ){
         if($slug=='routee106'){
             return 'routee-106';

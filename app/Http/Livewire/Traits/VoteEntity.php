@@ -13,12 +13,9 @@ trait VoteEntity
     public $entity;
 
     public function loadVoteEntity(){
-
         $valid = Votes::where('id',request()->get('vId'))->where('status','votting')->count();
         if(!request()->has('vId') or !$valid) return redirect('/');
         $this->entity = Votes::where('id',request()->get('vId'))->where('status','votting')->first();
-
-        #dd($this->entity);
     }
 
     public function getRandom( $limit ){

@@ -28,22 +28,28 @@ class VotemapConfirmation extends Component
     public function mount()
     {
 
+        // Active vote
         $this->loadVoteEntity();
 
+        // Binds
         $this->bindData();
 
-        #dd($this->entity->votemap);
+        // Confirmation Options
         $this->options = $this->entity->votemap;
 
     }
 
     public function confirmVote( $id ){
-        $Level = LevelsIndex::where('id',$id)->first();
 
+        // Confirmed Level
+        $Level = LevelsIndex::where('id',$id)->firstOrFail();
+
+        // Discord Message
         dispatch( new DiscordMessage( 'success', Auth::user()->nickname, 'confirmou o votemap',[
             'winner'=>$Level
         ]));
 
+        // Close Vote
         Votes::where('id',$this->entity->id)->update([
             'winner'=>$Level,
             'status'=>'complete'

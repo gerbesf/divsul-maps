@@ -16,10 +16,11 @@ class VotemapController extends Controller
 
         try {
 
+            // force fail to redirect
             $this->entity = Votes::where('id',$request->get('vId'))->where('user_id',Auth::user()->id)->firstOrFail();
 
+            // force redirect if expired
             if(  \Carbon\Carbon::parse( $this->entity->expires_at )->isPast() ==true){
-                #dd('redir by time', \Carbon\Carbon::parse( $this->entity->expires_at )->isPast() , \Carbon\Carbon::parse( $this->entity->expires_at )->format('d/m/Y H:i:s'));
                 return redirect('/');
             }
 
@@ -30,27 +31,8 @@ class VotemapController extends Controller
             ]);
 
         }catch ( \Exception $exception ){
-            return redirect('/?error=');
+            return redirect('/?error='.$exception->getMessage());
         }
     }
 
-    public function confirmation( Request $request ){
-
-    /*    try {
-
-            $this->entity = Votes::where('id',$request->get('vId'))->where('user_id',Auth::user()->id)->firstOrFail();
-            if(  \Carbon\Carbon::parse( $this->entity->expires_at )->isPast() ==true){
-                return redirect('/');
-            }
-
-            return view('votemap',[
-                'layout'=>$this->entity->layout,
-                'players'=>$this->entity->players,
-                'votemap'=>$this->entity->votemap,
-            ]);
-
-        }catch ( \Exception $exception ){
-            return redirect('/?error=');
-        }*/
-    }
 }

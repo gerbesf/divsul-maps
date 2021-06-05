@@ -15,11 +15,8 @@ class Chronometer extends Component
         $this->loadVoteEntity();
     }
 
-
     public function checkValid(){
-        #dd($this->entity->expires_at );
         if(  \Carbon\Carbon::parse( $this->entity->expires_at )->isPast() ==true){
-         #   dd('redirect crono'.$this->entity->expires_at);
             return redirect('/');
         }
     }
