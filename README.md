@@ -19,6 +19,6 @@ php artisan create:admin_master {name} {nick} {email} {password}
 ```
 
 
-##### Crédits
+##### Credits
 
 Ferreira(Original)
