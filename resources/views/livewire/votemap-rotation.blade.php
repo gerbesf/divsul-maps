@@ -14,8 +14,8 @@
                             <div class="rounded opacity-80 transition-all hover:opacity-100" style="background: rgba(0,0,0,0.26)">
                                 <img class="" src="https://www.realitymod.com/mapgallery/images/maps/{{ \Illuminate\Support\Str::slug($map->map->getImageKeyName()) }}/mapoverview_gpm_{{ $map['game_mode'] }}_{{ $map['size'] }}.jpg">
                                 <div class="p-4 ">
-                                    <div class="font-bold text-xs md:text-md  text-neutral-content">{{ $map->map['Name'] }}</div>
-                                    <span class="text-gray-600 text-xs">{{ __('app.size_'.$map['size']) }}</span>
+                                    <div class="font-bold text-lg text-center mxd:text-md  text-neutral-content">{{ $map->map['Name'] }}</div>
+                           {{--         <span class="text-gray-600 text-xs">{{ __('app.size_'.$map['size']) }}</span>--}}
                                 </div>
                             </div>
                         </div>

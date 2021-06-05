@@ -36,6 +36,7 @@ class VotemapRotation extends Component
 
         $this->bindData();
 
+
         if( Cache::has('votes_'.$this->entity->id) ){
             $c = ( Cache::get('votes_'.$this->entity->id));
             $this->history = $c;
@@ -77,12 +78,11 @@ class VotemapRotation extends Component
 
     public function runSweepstakes(){
      #   $this->loadVoteEntity();
-       # $this->loadVoteEntity();
+        $this->loadVoteEntity();
           $this->findRequestInputs();
          $this->populateHistory();
          $this->populateOptions();
          $this->makeAvaliableMaps();
-     #   dd($this->avaliable_maps);
         $this->getUnique();
     }
 
@@ -92,6 +92,12 @@ class VotemapRotation extends Component
         $maps = [];
         $votemap_text ='';
 
+       /* $avaliable_maps = collect( $this->avaliable_maps )->filter(function ($obj){
+            if(isset($obj['unavaliable']) && $obj['unavaliable'] == false){
+                return $obj;
+            }
+        });*/
+       # dd($this->avaliable_maps,$avaliable_maps);
         if(count($this->avaliable_maps)){
 
             $sorteado = $this->getRandom( count($this->avaliable_maps)-1 );
@@ -103,7 +109,8 @@ class VotemapRotation extends Component
                 $maps[$toSort[ $item ]->map->Key] = $toSort[ $item ]->map->Key;
                 $this->sorteado[] = $toSort[ $item ];
                 $votemap_text .= ' '.substr($toSort[ $item ]['map_key'],0,9).' ';
-                $votemap_history[$toSort[ $item ]->id] = $toSort[ $item ]->map->Name.' - '.__('app.size_'.$toSort[ $item ]['size']);
+                $votemap_history[$toSort[ $item ]->id] = $toSort[ $item ]->map->Name;
+                #$votemap_history[$toSort[ $item ]->id] = $toSort[ $item ]->map->Name.' - '.__('app.size_'.$toSort[ $item ]['size']);
             }
 
             $this->history = array_merge($this->history,[$votemap_history]);

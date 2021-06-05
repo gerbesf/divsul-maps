@@ -47,15 +47,16 @@ class RealityServer extends Command
         $slug = strtolower(str_replace(['_','-',' ',"'"],'',$this->mapname));
         $this->last_entity = ServerHistory::orderBy('id','desc')->first();
 
+
         if($name) {
+
+            $Level = Levels::where('name',$name)->first();
 
             $valid = false;
             if($this->numplayers>=env('DIV_MIN_PLAY_VALID')){
                 $valid = true;
             }
 
-            // Check validatit
-            $this->checkIsValidNow();
 
             // If not exists entity
             if (!isset($this->last_entity->id)) {
@@ -63,7 +64,7 @@ class RealityServer extends Command
                 // payload
                 $payload = [
                     'name' => $name,
-                    'map_key' => $this->level->Key,
+                    'map_key' => $Level->Key,
                     'map_mode' => str_replace('gpm_', '', $this->gametype),
                     'map_size' => $this->mapsize,
                     'timestamp' => Carbon::now(),
@@ -77,21 +78,23 @@ class RealityServer extends Command
 
             // if Entity is diff from last
             if (isset($this->last_entity->id)) {
-                if ($this->last_entity->map_key != $slug) {
+
+               # dd($this->last_entity->map_key , $Level->Key);
+                if ($this->last_entity->map_key != $Level->Key) {
 
                     // select map
-                    $map = Levels::where('Slug',$slug)->first();
+                   # $map = Levels::where('Slug',$slug)->first();
 
                     // image
                     $game_mode = str_replace('gpm_', '', $this->gametype);
-                    $image = 'https://www.realitymod.com/mapgallery/images/maps/'.$map->Image.'/mapoverview_gpm_'.$game_mode.'_'.$this->mapsize.'.jpg';
+                    $image = 'https://www.realitymod.com/mapgallery/images/maps/'.$Level->Image.'/mapoverview_gpm_'.$game_mode.'_'.$this->mapsize.'.jpg';
 
                     $name .= ' - '.__('app.'.str_replace('gpm_', '', $this->gametype)).' - '.__('app.sized_'.$this->mapsize);
 
                     // payload
                     $payload = [
                         'name' => $name,
-                        'map_key' => $slug,
+                        'map_key' => $Level->Key,
                         'map_mode' => str_replace('gpm_', '', $this->gametype),
                         'map_size' => $this->mapsize,
                         'timestamp' => Carbon::now(),
@@ -99,6 +102,7 @@ class RealityServer extends Command
                         'valid' => $valid
                     ];
 
+                    #dd($payload);
                     // Discord Alert
                     dispatch( new DiscordMessage( 'primary', $name, $this->numplayers.'/100',  [
                         'image'=>$image
@@ -106,12 +110,17 @@ class RealityServer extends Command
 
                     // Create
                     ServerHistory::create($payload);
+                }else{
+
+                    // Check validatit
+                    $this->checkIsValidNow( $valid );
+
                 }
             }
         }
     }
 
-    protected function checkIsValidNow(){
+    protected function checkIsValidNow( $valid){
 
 
         // for update total players
@@ -119,11 +128,8 @@ class RealityServer extends Command
         $payload['players'] = $this->numplayers;
 
         if(isset($this->last_entity->valid)){
-            if(  $this->last_entity->valid==false){
-                $payload['valid'] = true;
-            }else{
-                $payload['valid'] = 0;
-            }
+
+            $payload['valid'] = $valid;
             ServerHistory::where('id',$this->last_entity->id)->update($payload);
         }
     }

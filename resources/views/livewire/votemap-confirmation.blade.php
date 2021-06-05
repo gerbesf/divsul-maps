@@ -12,7 +12,14 @@
 
                             <div class="font-bold">{{ $option['map']['Name'] }}</div>
                             {{-- <div>{{ __('app.'.$option['game_mode']) }}</div>--}}
-                            <div>{{ __('app.sized_'.$option['size']) }}</div>
+                    {{--        <div>{{ __('app.sized_'.$option['size']) }}</div>--}}
+
+
+                            @foreach($option['map']['Layouts'] as $opt)
+                                @if($opt['Key']==$option['game_mode'])
+                                    <div class="text-xs uppercase text-gray-500"><span> - {{ __('app.size_'.$opt['Value']) }}</span></div>
+                                @endif
+                            @endforeach
 
                         </div>
                         <button class="btn btn-primary btn-block mb-5" wire:click="confirmVote({{ $option['id'] }})">{{ $option['map']['Name'] }}</button>

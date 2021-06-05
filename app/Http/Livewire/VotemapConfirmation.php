@@ -37,6 +37,8 @@ class VotemapConfirmation extends Component
         // Confirmation Options
         $this->options = $this->entity->votemap;
 
+       # dd($this->entity->votemap);
+
     }
 
     public function confirmVote( $id ){
