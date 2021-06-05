@@ -25,7 +25,7 @@
                     setTimeout(function (){
                         var element = document.getElementById("loader");
                         element.classList.add("hidden");
-                    },300)
+                    },100)
                 }
                 window.openZ = function (){
                     var element = document.getElementById("loader");
