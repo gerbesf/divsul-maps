@@ -38,14 +38,4 @@
         </div>
     </div>
 
-    {{--<script>
-        document.addEventListener("DOMContentLoaded", () => {
-            Livewire.emit('disableVotemap',false)
-            @if(count($zmaps)>=3)
-            alert('x');
-            @endif
-        });
-        //  $this->emit('disableVotemap',false);
-    </script>--}}
-
 </div>

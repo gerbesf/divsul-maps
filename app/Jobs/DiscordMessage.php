@@ -73,18 +73,25 @@ class DiscordMessage implements ShouldQueue
         }
         // Votemap Options
         if( isset($this->payload['votemap'])){
+            $i=1;
             foreach($this->payload['votemap'] as $map){
-                $message->addField($map['map']['Name'], __('app.size_'.$map['size']),true);
+                $message->addField('#'.$i, $map['map']['Name'],true);
+                $i++;
             }
         }
 
         // History on Votemap
         if( isset($this->payload['history']) && is_array($this->payload['history'])){
-            $extra = "\n\nTentativas anteriores: \n";
+
+            $extra = '';
             foreach($this->payload['history'] as $map){
                 $extra .= implode(' | ',$map)."\n";
             }
-            $message->setFooterText($extra);
+
+            if(strlen($extra)){
+                $extra = "\n\nTentativas anteriores: \n";
+                $message->setFooterText($extra);
+            }
         }
 
         $message->setDescription($this->message);
