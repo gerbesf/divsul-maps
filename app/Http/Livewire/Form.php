@@ -20,7 +20,7 @@ class Form extends Component
     public $players = '';
 
     // Query for layout map
-    public $layout = '';
+    public $gameMode = '';
 
     use VotemapFilter;
 
@@ -28,7 +28,7 @@ class Form extends Component
     public $filters = [];
 
     // Query string
-    public $queryString = ['players','layout'];
+    public $queryString = ['players','gameMode'];
 
     // Construct
     public function mount(){
@@ -57,9 +57,9 @@ class Form extends Component
         }*/
 
         // Input Layout based on url
-        if(request()->has('layout')){
-            $this->layout = request()->get('layout');
-            $this->emit('filter_layout',$this->layout);
+        if(request()->has('gameMode')){
+            $this->gameMode = request()->get('gameMode');
+            $this->emit('filter_layout',$this->gameMode);
         }
 
         // Input Layout based on url
@@ -76,7 +76,7 @@ class Form extends Component
             $this->emit('filter_players',$value);
             $this->players = $value;
         }
-        if($key=='layout'){
+        if($key=='gameMode'){
             $this->emit('filter_layout',$value);
             $this->layout = $value;
         }

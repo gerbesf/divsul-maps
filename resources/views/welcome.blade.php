@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 ">
             @auth
                 <ul class="steps w-full text-neutral-content">
-                    <li class="step step-primary">Layout</li>
+                    <li class="step step-primary">Game Mode</li>
                     <li class="step">Choose</li>
                     <li class="step">Confirm</li>
                 </ul>

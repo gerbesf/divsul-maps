@@ -86,7 +86,7 @@
 
 
             @if (session()->has('message'))
-                <div class="alert alert-warning rounded-sm">
+                <div class="alert alert-warning rounded-full mt-3 text-center">
                     {{ session('message') }}
                 </div>
             @endif

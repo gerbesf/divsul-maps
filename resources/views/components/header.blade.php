@@ -1,4 +1,4 @@
-<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
+<div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-0">
     <div class="flex-1 px-2 mx-2">
     <span class="text-lg font-bold">
             <a href="/">{{ env('APP_NAME') }}</a>

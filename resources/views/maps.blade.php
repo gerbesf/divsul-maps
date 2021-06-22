@@ -4,7 +4,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="py-4">
                 <div class="text-4xl font-bold card-title text-primary ">Maps configuration</div>
-                <div class=" mb-6 text-sm  text-gray-600 uppercase  ">Manager the votemap grid</div>
             </div>
 
             <div class="">

@@ -10,9 +10,20 @@ body{
    /* background: #000; */
 }
 
-.history-card {
-    background-size: 100% auto;
+@media (min-width: 641px) {
+    .history-card {
+        background-size: 100% auto;
+    }
 }
+
+
+@media (max-width: 640px) {
+    .history-card {
+        background-position: center;
+        background-size: auto 100% !important;
+    }
+}
+
 
 .loader {
     border-top-color: #3498db;
