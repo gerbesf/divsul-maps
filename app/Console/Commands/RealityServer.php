@@ -16,12 +16,13 @@ use Ixudra\Curl\Facades\Curl;
 class RealityServer extends Command
 {
 
-    protected $signature = 'reality:server';
+    protected $signature = 'reality:server {inline?}';
 
     protected $description = 'Sync server on reality mod';
 
     protected $api_reality_servers = [];
 
+    protected $inline = false;
     protected $level = '';
     protected $hostname = '';
     protected $gamever = '';
@@ -43,6 +44,7 @@ class RealityServer extends Command
     public function handle()
     {
 
+        $this->inline = $this->argument('inline') ?: false;
         @file_get_contents('http://braserver.divsul.org:666/PRServer/LogViewer/public/download.php?server_id=1');
 
         $this->populateServers();
@@ -164,7 +166,10 @@ class RealityServer extends Command
 
             if($server->serverId==$activeServer->server_id){
 
-                $this->saveClone($server);
+                if($this->inline!=false){
+
+                    $this->saveClone($server);
+                }
 
                 // select level
                 $Level = Levels::where('name',$server->properties->mapname)->first();
