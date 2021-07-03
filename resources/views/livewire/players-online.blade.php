@@ -33,7 +33,7 @@
     </div>
 
 
-    <div class="border rounded p-4 bg-white" wire:poll>
+    <div class="border rounded p-4 bg-white" wire:poll.2750ms>
 
         {{--        <div class="text-center text-gray-400 pb-3">
                     {{ now()->format('d/m/Y H:i:s') }}

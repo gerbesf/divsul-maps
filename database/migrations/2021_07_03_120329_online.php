@@ -25,6 +25,7 @@ class Online extends Migration
             $table->boolean('valid')->nullable();
             $table->json('tags')->nullable();
             $table->json('nicks')->nullable();
+            $table->json('ips')->nullable();
         });
 
 
