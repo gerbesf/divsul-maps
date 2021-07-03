@@ -34,8 +34,11 @@ class SetupController extends Controller
 
         $this->populateServers();
 
+        $Server = Server::first();
+
         return view('setup',[
-            'servers'=>$this->api_reality_servers
+            'servers'=>$this->api_reality_servers,
+            'server'=>$Server
         ]);
     }
 
@@ -100,6 +103,16 @@ class SetupController extends Controller
         unset($_ihostname[0]);
         unset($_ihostname[1]);
         return implode(' ',$_ihostname);
+    }
+
+    public function update(){
+        $Server = Server::first();
+        Server::where('id',$Server->id)->update([
+            'hash_endpoint' => request()->get('hash_endpoint'),
+            'http_username' => request()->get('http_username'),
+            'http_password' => request()->get('http_password'),
+        ]);
+        return redirect('/setup');
     }
 
 }

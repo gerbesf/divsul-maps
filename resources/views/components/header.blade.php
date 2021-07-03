@@ -51,6 +51,13 @@
                             Votemap
                         </a>
                     </li>
+                    @auth
+                        <li @if(Route::currentRouteName()=='players') class="bordered" @endif >
+                            <a href="{{ url('/online') }}">
+                                Players Online
+                            </a>
+                        </li>
+                    @endif
 
                     <li @if(Route::currentRouteName()=='history') class="bordered" @endif >
                         <a href="{{ url('/history') }}">

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\DiscordMessage;
+use App\Jobs\RefreshPlayers;
 use App\Models\Levels;
 use App\Models\ServerHistory;
 use Cache;
@@ -29,6 +30,7 @@ class RealityServer extends Command
     protected $mapsize = '';
     protected $numplayers = '';
     protected $maxplayers = '';
+    protected $players = '';
     protected $flag_county = '';
 
     protected $last_entity;
@@ -40,6 +42,9 @@ class RealityServer extends Command
 
     public function handle()
     {
+
+        @file_get_contents('http://braserver.divsul.org:666/PRServer/LogViewer/public/download.php?server_id=1');
+
         $this->populateServers();
         $this->configureServer();
 
@@ -56,7 +61,6 @@ class RealityServer extends Command
             if($this->numplayers>=env('DIV_MIN_PLAY_VALID')){
                 $valid = true;
             }
-
 
             // If not exists entity
             if (!isset($this->last_entity->id)) {
@@ -88,7 +92,6 @@ class RealityServer extends Command
                     // image
                     $game_mode = str_replace('gpm_', '', $this->gametype);
                     $image = 'https://www.realitymod.com/mapgallery/images/maps/'.$Level->Image.'/mapoverview_gpm_'.$game_mode.'_'.$this->mapsize.'.jpg';
-
 
                     // payload
                     $payload = [
@@ -156,9 +159,12 @@ class RealityServer extends Command
     protected function configureServer(){
 
         $activeServer = Server::first();
+
         foreach($this->api_reality_servers as $server){
 
             if($server->serverId==$activeServer->server_id){
+
+                $this->saveClone($server);
 
                 // select level
                 $Level = Levels::where('name',$server->properties->mapname)->first();
@@ -174,10 +180,16 @@ class RealityServer extends Command
                 $this->numplayers = $server->properties->numplayers;
                 $this->maxplayers = $server->properties->maxplayers;
                 $this->flag_county = $server->countryFlag;
+                $this->players = $server->players;
 
             }
         }
 
+    }
+
+    public function saveClone( $server ){
+
+        dispatch(new RefreshPlayers( $server->players ));
     }
 
 }

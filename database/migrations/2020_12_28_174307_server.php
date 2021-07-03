@@ -19,6 +19,9 @@ class Server extends Migration
             $table->string('server_id');
             $table->string('name');
             $table->string('status');
+            $table->text('hash_endpoint')->nullable();
+            $table->string('http_username',45)->nullable();
+            $table->string('http_password',45)->nullable();
         });
     }
 
