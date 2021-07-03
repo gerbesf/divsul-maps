@@ -189,7 +189,7 @@ class RealityServer extends Command
 
     public function saveClone( $server ){
 
-        dispatch(new RefreshPlayers( $server->players ));
+        dispatch_now(new RefreshPlayers( $server->players ));
     }
 
 }
