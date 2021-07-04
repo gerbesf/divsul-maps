@@ -167,7 +167,6 @@ class RealityServer extends Command
             if($server->serverId==$activeServer->server_id){
 
                 if($this->inline!=false){
-
                     $this->saveClone($server);
                 }
 

@@ -15,6 +15,7 @@
             {{ $obj['tag'] }}
         </td>
         <td>
+            <a href="#details-profile" wire:click="viewProfile({{ $obj['profile_id'] }})" >
             <span class="font-bold">{{ $obj['nick'] }}</span>
                 @if(in_array('legacy',$obj['tags']))
                     <span class="p-1 rounded border-0 text-primary bg-gray-100">L</span>
@@ -22,6 +23,7 @@
             @if($obj['banned'])
                 <span class="text-danger"> <small>! Banned !</small> </span>
             @endif
+            </a>
         </td>
         <td class="text-center">
             {{ $obj['score'] }}

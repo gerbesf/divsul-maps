@@ -1,43 +1,109 @@
 <div >
 
-    <div class="grid grid-cols-2">
-    {{--    <div>
-            --}}{{--
-                        <select wire:model="selectedClan" class="input input-bordered text-white block mt-1 w-full">
-                            <option value="0">All Clans</option>
-                            @foreach($clans as $clan)
-                                <option value="{{ $clan }}">{{ $clan }}</option>
-                            @endforeach
-                        </select>--}}{{--
-        </div>--}}
-        <div>
 
-            <div class="p-4">
-
-                <label class="text-white">
-                    <input type="checkbox" wire:model="groupTeams" value="1"> Distinct Teams
-                </label>
-            </div>
-
-        </div>
-        {{--<div>
-
-            <div class="p-4">
-
-                <label class="text-white">
-                    <input type="checkbox" wire:model="highOnly" value="1"> Alert Only
-                </label>
-            </div>
-
-        </div>--}}
+    <div wire:loading>
+        <img src="{{ asset('loading.gif') }}">
     </div>
+    <div wire:loading.remove>
+    <div id="details-profile" class="pt-4">
+        @if($profile)
+
+            <div class="text-white" style="min-height:100vh">
+                <div class="p-3">
+                    <h1 class="text-3xl">{{ $profile['nickname'] }}</h1>
+                    {{--   <pre>{{ print_r($profile) }}</pre>--}}
+                    <button class="btn btn-sm btn-primary float-right" type="button" wire:click="backt">Back</button>
+                </div>
+                <div style="clear:both"></div>
+                <div class="grid md:grid-cols-2">
+                    <div>
+
+                        @if($find_hash)
+                            <h4 class="p-3">Search by Hash</h4>
+                            <div class="bg-white p-2 text-gray-900" style="overflow-y: scroll; max-height: 80vh">
+                                @foreach($find_hash as $hash=>$blockList)
+                                    <table class="w-full" style="font-size: 12px">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Nick</th>
+                                            <th>IP</th>
+                                            <th>Tags</th>
+                                        </tr>
+                                        </thead>
+                                        @foreach($blockList as $line)
+                                            <tr>
+                                                <td>{{ explode(' ',$line['data'])[0] }}</td>
+                                                <td style="white-space: nowrap">{{ $line['nick'] }}</td>
+                                                <td style="font-size: 8px">{{ $line['ip'] }}</td>
+                                                <td style="font-size: 10px; text-transform: lowercase">
+                                                    {{ implode(', ',$line['tags']) }}
+                                                    @if($line['banned']) BANNED! @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                @endforeach
+                            </div>
+                        @endif
+
+                    </div>
+                    <div>
+                        @if($find_ip)
+                            <h4 class="p-3">Search by IP</h4>
+                            <div class="bg-white p-2 text-gray-900" style="overflow-y: scroll; max-height: 80vh">
+                                @foreach($find_ip as $hash=>$blockList)
+                                    <table class="w-full" style="font-size: 12px">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Nick</th>
+                                            <th>IP</th>
+                                            <th>Tags</th>
+                                        </tr>
+                                        </thead>
+                                        @foreach($blockList as $line)
+                                            <tr>
+                                                <td>{{ explode(' ',$line['data'])[0] }}</td>
+                                                <td style="white-space: nowrap">{{ $line['nick'] }}</td>
+                                                <td style="font-size: 8px">{{ $line['ip'] }}</td>
+                                                <td style="font-size: 10px; text-transform: lowercase">
+                                                    {{ implode(', ',$line['tags']) }}
+                                                    @if($line['banned']) BANNED! @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                @endforeach
+                            </div>
+                        @endif
+
+
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>
+
+    </div>
+
+    @if(!$profile)
+
 
 
     <div class="border rounded p-4 bg-white" wire:poll.2750ms>
 
-        {{--        <div class="text-center text-gray-400 pb-3">
-                    {{ now()->format('d/m/Y H:i:s') }}
-                </div>--}}
+        <div class="float-right text-gray-400 pb-3">
+            {{ now()->format('d/m/Y H:i:s') }}
+        </div>
+
+        <div class="float-left" >
+            <label class="text-gray-400 text-sm">
+                <input type="checkbox" wire:model="groupTeams" value="1"> Distinct Teams
+            </label>
+        </div>
+
+
 
         <div class="uppercase text-gray-400 text-center border-b">New Players / Out of Database</div>
         <div class="text-center pb-3">
@@ -134,5 +200,9 @@
         @endif
         </div>
     </div>
+
+    @endif
+
+
 
 </div>
