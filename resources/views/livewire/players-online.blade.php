@@ -32,7 +32,7 @@
                                             <tr>
                                                 <td>{{ explode(' ',$line['data'])[0] }}</td>
                                                 <td style="white-space: nowrap">{{ $line['nick'] }}</td>
-                                                <td style="font-size: 8px">{{ $line['ip'] }}</td>
+                                                <td style="font-size: 8px">{{ substr($line['ip'],0,10) }}...</td>
                                                 <td style="font-size: 10px; text-transform: lowercase">
                                                     {{ implode(', ',$line['tags']) }}
                                                     @if($line['banned']) BANNED! @endif
@@ -63,7 +63,7 @@
                                             <tr>
                                                 <td>{{ explode(' ',$line['data'])[0] }}</td>
                                                 <td style="white-space: nowrap">{{ $line['nick'] }}</td>
-                                                <td style="font-size: 8px">{{ $line['ip'] }}</td>
+                                                <td style="font-size: 8px">{{ substr($line['ip'],0,10) }}...</td>
                                                 <td style="font-size: 10px; text-transform: lowercase">
                                                     {{ implode(', ',$line['tags']) }}
                                                     @if($line['banned']) BANNED! @endif

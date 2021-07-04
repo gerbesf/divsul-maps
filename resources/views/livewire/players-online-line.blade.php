@@ -1,3 +1,4 @@
+
 @if(in_array('high_risk',$obj['tags']) && $highOnly==true or $highOnly==false)
 
     <tr class="
@@ -15,15 +16,19 @@
             {{ $obj['tag'] }}
         </td>
         <td>
-            <a href="#details-profile" wire:click="viewProfile({{ $obj['profile_id'] }})" >
-            <span class="font-bold">{{ $obj['nick'] }}</span>
-                @if(in_array('legacy',$obj['tags']))
-                    <span class="p-1 rounded border-0 text-primary bg-gray-100">L</span>
-                @endif
-            @if($obj['banned'])
-                <span class="text-danger"> <small>! Banned !</small> </span>
+            @if(!in_array($obj['nick'],['Ferreira']))
+                <a href="#details-profile" wire:click="viewProfile({{ $obj['profile_id'] }})" >
             @endif
+                <span class="font-bold">{{ $obj['nick'] }}</span>
+                    @if(in_array('legacy',$obj['tags']))
+                        <span class="p-1 rounded border-0 text-primary bg-gray-100">L</span>
+                    @endif
+                @if($obj['banned'])
+                    <span class="text-danger"> <small>! Banned !</small> </span>
+                @endif
+            @if(!in_array($obj['nick'],['ferreira']))
             </a>
+            @endif
         </td>
         <td class="text-center">
             {{ $obj['score'] }}
