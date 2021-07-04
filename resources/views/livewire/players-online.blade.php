@@ -1,9 +1,6 @@
 <div >
 
 
-    <div wire:loading>
-        <img src="{{ asset('loading.gif') }}">
-    </div>
     <div wire:loading.remove>
     <div id="details-profile" class="pt-4">
         @if($profile)
@@ -91,7 +88,7 @@
 
 
 
-    <div class="border rounded p-4 bg-white" wire:poll.2750ms>
+    <div class="border rounded p-4 bg-white" wire:poll.5750ms>
 
         <div class="float-right text-gray-400 pb-3">
             {{ now()->format('d/m/Y H:i:s') }}
@@ -203,6 +200,9 @@
 
     @endif
 
+    <div wire:loading>
+        <img src="{{ asset('loading.gif') }}">
+    </div>
 
 
 </div>
