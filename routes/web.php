@@ -17,7 +17,7 @@ Route::get('/', [\App\Http\Controllers\IndexController::class,'welcome'])->name(
 Route::get('/votemap', [\App\Http\Controllers\VotemapController::class,'votemap'])->name('votemap_page');
 Route::get('/history', [\App\Http\Controllers\ServerHistoryController::class,'history'])->name('history')->middleware('setup');
 
-Route::get('/online', [\App\Http\Controllers\PlayersOnline::class,'index'])->name('players');
+#Route::get('/online', [\App\Http\Controllers\PlayersOnline::class,'index'])->name('players');
 Route::get('/maps', [\App\Http\Controllers\MapsController::class,'management'])->name('maps');
 Route::get('/admins', [\App\Http\Controllers\AdminsController::class,'management'])->name('admins');
 Route::get('/setup', [\App\Http\Controllers\SetupController::class,'setup'])->name('setup');
