@@ -78,11 +78,11 @@ class VotemapRotation extends Component
 
     public function runSweepstakes(){
      #   $this->loadVoteEntity();
-        $this->loadVoteEntity();
-          $this->findRequestInputs();
-         $this->populateHistory();
-         $this->populateOptions();
-         $this->makeAvaliableMaps();
+        #$this->loadVoteEntity();
+        $this->findRequestInputs();
+        $this->populateHistory();
+        $this->populateOptions();
+        $this->makeAvaliableMaps();
         $this->getUnique();
     }
 

@@ -113,6 +113,22 @@ trait VotemapEngine {
         foreach($this->reality_maps as $reality_map)
         {
             $found = false;
+
+            // find file
+            try {
+
+                $findFile = @\Storage::get($reality_map['map_key'].'.txt');
+            }catch (\Exception $exception){
+                $findFile = null;
+            }
+            if($findFile){
+                if(Carbon::parse($findFile)->diffInHours()<=env('DIV_HOURS_ROTATION_MAP')){
+                    $found = true;
+                }else{
+                    \Storage::delete($reality_map['map_key'].'.txt');
+                }
+            }
+
          #   dd($this->server_maps,$this->layout);
             foreach($this->server_maps as $server_map)
             {
@@ -155,6 +171,8 @@ trait VotemapEngine {
         }else{
             $this->emit('disableVotemap',false);
         }
+
+        #dd($this->avaliable_maps);
 
     }
 

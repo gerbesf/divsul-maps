@@ -16,6 +16,8 @@ use Livewire\Component;
 class Form extends Component
 {
 
+    public $layout;
+
     // Query for player quantity
     public $players = '';
 
@@ -56,6 +58,8 @@ class Form extends Component
             }
         }*/
 
+        #dd($this->filters);
+
         // Input Layout based on url
         if(request()->has('gameMode')){
             $this->gameMode = request()->get('gameMode');
@@ -80,6 +84,11 @@ class Form extends Component
             $this->emit('filter_layout',$value);
             $this->layout = $value;
         }
+        if($key=='layout'){
+            $this->emit('filter_layout',$value);
+            $this->layout = $value;
+        }
+       # dd($key);
     }
 
 

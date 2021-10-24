@@ -17,4 +17,5 @@ return [
     'sized_64' => 'STD',
     'sized_32' => 'ALT',
     'sized_128' => 'LARG',
+    'gungame' => "Gun Game"
 ];

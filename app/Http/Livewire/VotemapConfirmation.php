@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Cache;
+use Storage;
 
 class VotemapConfirmation extends Component
 {
@@ -36,6 +37,10 @@ class VotemapConfirmation extends Component
 
         // Confirmation Options
         $this->options = $this->entity->votemap;
+
+        foreach($this->options as $optionMap){
+            Storage::put($optionMap['map_key'].'.txt',Carbon::now()->format('Y-m-d H:i:s'));
+        }
 
        # dd($this->entity->votemap);
 
