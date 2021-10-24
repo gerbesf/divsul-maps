@@ -38,10 +38,6 @@ class VotemapConfirmation extends Component
         // Confirmation Options
         $this->options = $this->entity->votemap;
 
-        foreach($this->options as $optionMap){
-            Storage::put($optionMap['map_key'].'.txt',Carbon::now()->format('Y-m-d H:i:s'));
-        }
-
        # dd($this->entity->votemap);
 
     }
@@ -50,6 +46,10 @@ class VotemapConfirmation extends Component
 
         // Confirmed Level
         $Level = LevelsIndex::where('id',$id)->firstOrFail();
+
+        foreach($this->options as $optionMap){
+            Storage::put($optionMap['map_key'].'.txt',Carbon::now()->format('Y-m-d H:i:s'));
+        }
 
         // Discord Message
         dispatch( new DiscordMessage( 'success', Auth::user()->nickname, 'confirmou o votemap',[
