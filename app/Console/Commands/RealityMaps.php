@@ -78,6 +78,10 @@ class RealityMaps extends Command
             return 'routee-106';
         }elseif($slug=='musaqalabeta'){
             return 'musaqala-beta';
+        }elseif($slug=='masirahbeta'){
+            return 'masirah';
+        }elseif($slug=='fieldsofkasselbeta'){
+            return 'fieldsofkassel-beta';
         }elseif($slug=='adakbeta'){
             return 'adak-beta';
         }elseif($slug=='operationthunderbeta'){

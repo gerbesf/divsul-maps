@@ -22,6 +22,10 @@ class Levels extends Model
             return 'routee-106';
         }elseif($this->Slug=='musaqalabeta'){
             return 'musaqala-beta';
+        }elseif($this->Slug=='fieldsofkasselbeta'){
+            return 'fieldsofkassel-beta';
+        }elseif($this->Slug=='masirahbeta'){
+            return 'masirah';
         }elseif($this->Slug=='adakbeta'){
             return 'adak-beta';
         }elseif($this->Slug=='operationthunderbeta'){
@@ -29,7 +33,7 @@ class Levels extends Model
         }elseif($this->Slug=='masirahbeta'){
             return 'masirah-beta';
         }elseif($this->Slug=='operationbobcatbeta'){
-            return 'operationbobcat-beta';
+            return 'operationbobcat';
         }elseif($this->Slug=='hibernaseasonal'){
             return 'hiberna-seasonal';
         }elseif($this->Slug=='iceboundseasonal'){

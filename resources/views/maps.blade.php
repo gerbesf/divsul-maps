@@ -19,6 +19,7 @@
 
                                 @if($layoutBlock['Key']!="coop")
                                     <div class="pb-2" >
+                                        {{ $item->Slug }}
                                         <img src="https://www.realitymod.com/mapgallery/images/maps/{{ \Illuminate\Support\Str::slug($item->getImageKeyName()) }}/mapoverview_gpm_{{ $layoutBlock['Key'] }}_{{ $layoutBlock['Value'] }}.jpg">
 
                                         <div class="py-4 font-bold">
